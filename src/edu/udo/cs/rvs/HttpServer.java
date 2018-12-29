@@ -1,31 +1,13 @@
 package edu.udo.cs.rvs;
 
+import edu.udo.cs.rvs.request.Request;
+import edu.udo.cs.rvs.response.Response;
+
 import java.io.*;
 import java.lang.*;
-import java.lang.annotation.*;
-import java.lang.invoke.*;
-import java.lang.ref.*;
-import java.lang.reflect.*;
 import java.net.*;
-import java.nio.*;
-import java.nio.channels.*;
-import java.nio.charset.*;
-import java.nio.file.*;
-import java.security.*;
-import java.security.acl.*;
-import java.security.cert.*;
-import java.security.interfaces.*;
-import java.security.spec.*;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.concurrent.atomic.*;
-import java.util.concurrent.locks.*;
-import java.util.function.*;
-import java.util.jar.*;
-import java.util.regex.*;
-import java.util.spi.*;
-import java.util.stream.*;
-import java.util.zip.*;
+
 
 /**
  * Nutzen Sie diese Klasse um den HTTP Server zu implementieren. Sie duerfen
@@ -51,6 +33,22 @@ public class HttpServer
     private int port;
 
     /**
+     * Socket welcher auf ankommende Verbindungen wartet.
+     */
+    private ServerSocket serverSocket;
+
+    /**
+     * Server ist online.
+     */
+    private boolean online;
+
+    /**
+     * Liste von verbundenen Rechnern
+     */
+    private List<Socket> connectedClients;
+
+
+    /**
      * Beispiel Dokumentation fuer diesen Konstruktor:
      * Der Server wird initialisiert und der gewuenschte Port
      * gespeichert.
@@ -61,6 +59,14 @@ public class HttpServer
     public HttpServer(int port)
     {
         this.port = port;
+
+        connectedClients = new ArrayList<>();
+
+        try {
+            serverSocket = new ServerSocket();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     
     /**
@@ -70,6 +76,61 @@ public class HttpServer
      */
     public void startServer()
     {
-    	throw new RuntimeException("Not yet implemented!");
+        online = true;
+
+        try {
+            serverSocket.bind(new InetSocketAddress(port));
+
+            Thread thread = new Thread(() -> {
+                while (online){
+                    try {
+                        Socket client = serverSocket.accept();
+
+                        connectedClients.add(client);
+
+                        PrintWriter out = new PrintWriter(
+                                client.getOutputStream(), true
+                        );
+
+                        BufferedReader in = new BufferedReader(
+                                new InputStreamReader(
+                                        client.getInputStream()
+                                )
+                        );
+
+                        Thread clientThread = new Thread(() -> {
+                            Request request = new Request(in);
+
+                            Response response = new Response(request, out);
+                            response.sendResponse();
+                        });
+
+                        clientThread.start();
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            thread.start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void dispose()
+    {
+        online = false;
+
+        try {
+            serverSocket.close();
+
+            for(Socket socket:connectedClients){
+                socket.close();
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
