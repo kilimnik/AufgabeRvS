@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Index!</title>
+		<meta charset="UTF-8" />
+		<meta name="author" content="Felix Homa" />
+		<link rel="stylesheet" type="text/css" href="stylesheet.css" />
+		<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+	</head>
+	<body>
+		<header>
+			<h1>Index.html</h1>
+			<h2>Diese Seite sollte in <i>h&uuml;bsch</i> dargestellt werden</h2>
+		</header>
+		<nav>
+			<h2>Navigation</h4>
+			<ul>
+				<li class="nava"><a href="index.html#">Index</a></li>
+				<li class="nava"><a href="https://moodle.tu-dortmund.de/course/view.php?id=12276" target="_blank">Moodle (extern)</a></li>
+				<li class="nava"><a href="https://tools.ietf.org/html/rfc1945" target="_blank">RFC 1945 (extern)</a></li>
+				<li class="nava"><a href="subfolder/subpage.html">Unterseite</a></li>
+				<li class="nava"><a href="subfolder/aufgabenstellung.pdf">PDF-Dokument</a></li>
+				<li class="nava"><a href="favicon.ico">ICOn-File</a></li>
+				<li class="nava"><a href="stylesheet.css">CSS-File</a></li>
+				<li class="nava"><a href="../unreachable.html">Nicht erreichbare Seite A</a></li>
+				<li class="nava"><a href="subfolder/../../unreachable.html">Nicht erreichbare Seite B</a></li>
+				<li class="nava"><a href="subfolder/../con/../../unreachable.html">Nicht erreichbare Seite C</a></li>
+			</ul>
+		</nav>
+		<div id="content">
+			<p>
+				Achten Sie darauf, dass die URL oben im Browser nicht mit "file:///" beginnt!<br />
+				
+			</p>
+			<h3>Beispiel Anfrage eines Browsers an den Server</h3>
+				<code>
+					GET / HTTP/1.0<span class="crlf">CR</span><span class="crlf">LF</span><br />
+					Host: www.tu-dortmund.de<span class="crlf">CR</span><span class="crlf">LF</span><br />
+					<span class="crlf">CR</span><span class="crlf">LF</span><br />
+				</code>
+				<p>
+					<span class="inlinecode crlf">CR</span> Carriage Return, in Java durch <span  class="inlinecode">\r</span> in einem String repr&auml;sentiert.<br />
+					<span class="inlinecode crlf">LF</span> New Line Feed, in Java durch <span class="inlinecode">\n</span> in einem String repr&auml;sentiert.<br />
+				</p>
+			<h3>Beispiel Antwort eines Servers</h3>
+				<code>
+					HTTP/1.0 302 Found<span class="crlf">CR</span><span class="crlf">LF</span><br />
+					Server: nginx<span class="crlf">CR</span><span class="crlf">LF</span><br />
+					Date: Tue, 27 Nov 2018 11:11:56 GMT<span class="crlf">CR</span><span class="crlf">LF</span><br />
+					Content-Type: text/html; charset=iso-8859-1<span class="crlf">CR</span><span class="crlf">LF</span><br />
+					Content-Length: 279<span class="crlf">CR</span><span class="crlf">LF</span><br />
+					Location: https://www.tu-dortmund.de/<span class="crlf">CR</span><span class="crlf">LF</span><br />
+					<span class="crlf">CR</span><span class="crlf">LF</span><br />
+					&lt;!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN"&gt;<span class="crlf">LF</span><br />
+					&lt;html&gt;&lt;head&gt;<span class="crlf">LF</span><br />
+					&lt;title&gt;302 Found&lt;/title&gt;<span class="crlf">LF</span><br />
+					&lt;/head&gt;&lt;body&gt;<span class="crlf">LF</span><br />
+					&lt;h1&gt;Found&lt;/h1&gt;<span class="crlf">LF</span><br />
+					&lt;p&gt;The document has moved &lt;a href="https://www.tu-dortmund.de/"&gt;here&lt;/a&gt;.&lt;/p&gt;<span class="crlf">LF</span><br />
+					&lt;hr&gt;<span class="crlf">LF</span><br />
+					&lt;address&gt;Apache Server at www.tu-dortmund.de Port 80&lt;/address&gt;<span class="crlf">LF</span><br />
+					&lt;/body&gt;&lt;/html&gt;<span class="crlf">LF</span><br />
+				</code>
+				<p>
+					<span class="inlinecode crlf">CR</span> Carriage Return, in Java durch <span  class="inlinecode">\r</span> in einem String repr&auml;sentiert. Wird genutzt um den Cursor an den Anfang der Zeile zu bewegen (z.B. im Terminal).<br />
+					<span class="inlinecode crlf">LF</span> New Line Feed, in Java durch <span class="inlinecode">\n</span> in einem String repr&auml;sentiert. Wird genutzt um den Cursor eine Zeile nach unten zu bewegen (z.B. im Terminal).<br />
+					Dies sind besondere Zeichen die erst das Ende einer Zeile markieren und danach den beginn einer neuen Zeile ank&uuml;ndigen. <span class="inlinecode crlf">CR</span><span class="inlinecode crlf">LF</span> nutzen jeweils 1 Byte (zusammen also 2 Byte).<br />
+				</p>
+			<h3>Lorem Ipsum F&uuml;lltext</h3>
+			<p>			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas maximus nibh est, in malesuada sem aliquam eget. Quisque libero mi, semper eget ex id, tempus rhoncus neque. Proin tincidunt lectus at metus facilisis rhoncus. Integer eget ex id mauris rutrum rutrum eget eu magna. Fusce ac dignissim nulla, dapibus posuere leo. Vestibulum fringilla lacus ac felis ultricies sollicitudin. In cursus quis leo ut volutpat. Phasellus vehicula ligula nec fringilla fringilla. Proin quis lacus tincidunt, dapibus nisi feugiat, fermentum lorem.</p>
+			<p>			Integer pretium, tortor vel sodales fermentum, neque arcu pulvinar nulla, a varius tellus quam in diam. In at vestibulum nulla, eget consectetur libero. Suspendisse potenti. Nullam faucibus ligula in velit mattis, nec eleifend nulla vulputate. Quisque aliquam nulla nec cursus euismod. In condimentum ipsum eu dolor molestie aliquet. Sed ultricies non est quis bibendum. Nunc at mi lobortis, viverra felis non, dapibus ipsum. Proin lectus elit, euismod et tincidunt nec, sodales eget ex. Ut orci lacus, tempus vitae eleifend id, gravida eget quam. Aenean ut venenatis urna. Aenean molestie viverra eros, vitae mollis augue hendrerit at. Nunc accumsan dolor at nunc pretium volutpat. Praesent eu urna vitae augue tristique tincidunt. Morbi sit amet pulvinar nunc.</p>
+			<p>			Etiam lobortis eros id augue molestie efficitur. Cras viverra volutpat est, ac euismod nulla vestibulum a. Mauris laoreet eget ligula a pretium. Curabitur dictum, libero non tempus faucibus, nibh quam vulputate quam, ut tristique mauris nibh vitae ligula. In vitae condimentum arcu. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. In eu euismod diam. In eget tellus commodo, malesuada mi quis, mattis velit. Vivamus posuere vel neque nec pretium. Nulla tincidunt nulla ligula, a euismod neque condimentum at.			</p>
+			<p>			Phasellus quis pulvinar tortor. Nulla sed porttitor orci. In nec dui arcu. Nullam vel hendrerit arcu, ac venenatis diam. Morbi eu velit consectetur, varius nulla sed, dictum mauris. Vivamus tristique sem erat, pharetra vehicula ante convallis malesuada. Praesent quis tempus ex. Aenean erat nunc, blandit ut tempus ac, tempus eu ante. Curabitur at odio et purus aliquam maximus. Sed ornare erat et mauris viverra lacinia. Ut mattis justo leo, ut lacinia mi ultrices at. Pellentesque vitae molestie arcu.			</p>
+			<p>			Donec dolor magna, vulputate nec eleifend nec, tempus non nisi. Etiam tempus lobortis volutpat. Suspendisse id dapibus sapien. Nulla porttitor velit lorem, bibendum laoreet elit hendrerit eget. Pellentesque ac nisl quis eros congue condimentum. Duis non ligula ut orci venenatis auctor. Curabitur sit amet lorem quis metus ultrices rhoncus. Ut et porttitor ante. Cras luctus urna libero, sit amet rutrum magna vestibulum sit amet. Vestibulum fringilla mi vitae rhoncus cursus. Morbi sodales odio a sapien faucibus, sed varius tellus maximus. Phasellus facilisis quam leo, ornare congue ligula eleifend sit amet. Suspendisse ac ipsum cursus sapien varius maximus sit amet quis turpis. Maecenas tristique tincidunt suscipit.			</p>
+			<p>			Mauris nec velit velit. Fusce molestie dictum aliquam. Nulla at sapien et ex dignissim euismod nec id eros. Proin vulputate gravida felis sed semper. Aliquam non tempus massa, vitae aliquam massa. Quisque condimentum vel nulla rutrum sagittis. Aliquam ut consequat ante. Curabitur non commodo diam, eget eleifend leo. Cras efficitur ex ac scelerisque laoreet. Suspendisse eu risus varius, vehicula ante eget, sagittis lectus. Quisque vitae neque vehicula sem tincidunt pharetra.			</p>
+			<p>			Nam et placerat nisi. Ut lobortis tempus mollis. Duis placerat ex eget quam imperdiet efficitur. Maecenas blandit nunc neque, eu pulvinar lectus pretium vel. Nullam congue nisl ac risus posuere rutrum. Suspendisse dapibus augue nec interdum tincidunt. Nam egestas, diam eu venenatis pellentesque, justo augue gravida mi, non tristique urna nisl sit amet eros. Phasellus tincidunt a justo at rhoncus. Proin cursus diam in odio fermentum dictum ac quis massa. Pellentesque at ligula a lectus iaculis lacinia. Aliquam id dolor quis neque elementum commodo non nec lorem.			</p>
+			<p>			Aliquam erat volutpat. Nulla non sem dignissim, ornare orci et, auctor neque. Aenean pretium enim fermentum nulla aliquet mattis. Donec quis arcu tincidunt, vulputate magna vehicula, efficitur nisl. Integer sed risus quis arcu semper suscipit. Ut neque nisi, dictum sed ligula nec, gravida tempor arcu. Ut semper dolor dignissim massa molestie molestie. Maecenas ex tortor, rhoncus ac urna id, commodo lobortis sapien. Integer venenatis vulputate nunc sit amet luctus. Praesent tincidunt eros eget ipsum sagittis, in mollis leo efficitur. Fusce interdum nunc id purus blandit cursus. Nunc porttitor eu urna vel sagittis. Mauris tempor luctus mi, eu vestibulum orci consectetur at. Nulla varius hendrerit urna ac viverra. Proin gravida lacus orci, feugiat rhoncus arcu finibus ac. Fusce semper finibus nibh, eu faucibus nulla vulputate id.			</p>
+			<p>			Pellentesque dignissim lorem vitae erat accumsan, in euismod nibh tristique. Praesent id mauris metus. In quis dolor lobortis, aliquam justo eu, fermentum quam. Fusce et auctor nisl, a viverra ex. Duis id diam et lectus tincidunt porttitor sed at elit. Duis venenatis ante ac urna rhoncus viverra. Duis quis nibh ut nisl gravida varius. Fusce tempor efficitur lacinia. Mauris ut eros magna. Integer sed venenatis felis. Nunc sodales, elit in posuere tincidunt, arcu odio hendrerit orci, at ornare lorem felis et leo. Aenean hendrerit mattis purus, suscipit condimentum purus semper et.			</p>
+			<p>			Aliquam volutpat justo ac orci efficitur rutrum. Nulla eu tortor porttitor, ultricies nunc sit amet, viverra dolor. In lobortis, elit nec efficitur laoreet, mauris libero congue urna, non pulvinar nisi quam vel odio. Vivamus non odio dui. Integer mollis aliquam mauris. Curabitur elementum commodo lorem at aliquet. Phasellus bibendum euismod tortor ut lobortis. Phasellus lectus enim, scelerisque sit amet lectus ac, sollicitudin sollicitudin erat. Suspendisse finibus finibus justo vitae venenatis. Praesent at imperdiet sem. Morbi posuere mi leo, vel venenatis mi tincidunt nec. Suspendisse blandit iaculis nunc sit amet iaculis. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. In efficitur eros malesuada velit facilisis volutpat. Proin nisl justo, interdum in odio non, vulputate lobortis ipsum. Duis luctus dapibus eros, id porta augue tempus ut.			</p>
+			<p>			Nullam congue cursus sollicitudin. Donec elementum lorem non luctus convallis. Sed turpis lorem, tempus eu commodo cursus, sagittis ac est. Nunc ultrices erat vel ante rutrum egestas. Praesent hendrerit, quam eu sagittis volutpat, odio libero tincidunt sapien, nec venenatis est felis pharetra dui. Donec enim nibh, bibendum at feugiat et, blandit ut velit. Aenean aliquet arcu non fermentum tincidunt. Maecenas imperdiet sapien vel nisl dignissim pulvinar. Vivamus scelerisque mauris et elit cursus congue. Ut quam nibh, scelerisque ut placerat varius, interdum ac risus. Mauris tristique risus ut magna mattis, a porttitor leo aliquet. Integer a dolor nec dolor iaculis malesuada nec non turpis. Cras varius vehicula diam, id mattis dolor aliquam eget. Aenean consectetur venenatis vestibulum. Sed vitae nibh sit amet purus porta pulvinar. Quisque et porta dolor, eget ultrices sem.			</p>
+			<p>			Donec ipsum erat, tempor ac velit sit amet, suscipit finibus diam. Morbi ut tellus mattis, facilisis erat at, gravida leo. Etiam interdum at nisi vel porta. Mauris laoreet pellentesque tellus vel pharetra. Integer gravida eleifend massa id luctus. Donec sagittis tortor justo, ac semper purus dignissim ut. Phasellus eu turpis eu ipsum ultricies hendrerit. Proin accumsan enim ut sapien mollis scelerisque. Proin et tincidunt magna. In luctus porttitor leo id vulputate.			</p>
+			<p>			In hac habitasse platea dictumst. Fusce tempor tempus dignissim. Vivamus vel quam id nulla fringilla dapibus ac quis est. Sed interdum viverra hendrerit. Phasellus hendrerit pulvinar enim nec sagittis. Maecenas efficitur erat eu orci fringilla, at efficitur metus commodo. Praesent non diam blandit, pharetra nibh id, facilisis dui. Donec eget placerat dui. Suspendisse in cursus metus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Phasellus in eleifend lorem. Proin scelerisque placerat lorem ac consequat. Praesent et massa venenatis, tempor nulla nec, accumsan velit. Suspendisse eget libero ornare, ultricies nunc sit amet, tincidunt mauris. Nam quis scelerisque tortor, eu vehicula sem. Vivamus ac nisi feugiat, gravida tellus hendrerit, viverra quam.			</p>
+			<p>			Nullam in lorem enim. Donec vulputate velit ut metus pulvinar, sed condimentum enim ornare. Duis hendrerit mauris ut tincidunt tempus. Mauris sed porttitor felis, non porta massa. Fusce eu lobortis nulla. Ut accumsan risus vitae dolor vehicula fermentum. Ut blandit interdum mi, at consectetur dolor eleifend ac. Cras sollicitudin commodo mauris laoreet tincidunt. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;			</p>
+			<p>			Mauris porttitor vitae erat non blandit. Duis porttitor ex vel lacus rutrum interdum. Sed egestas placerat scelerisque. Etiam lectus metus, placerat eu porta id, molestie ac nisi. Fusce ligula ante, pellentesque in viverra quis, condimentum et metus. Phasellus varius arcu sit amet justo varius, sit amet aliquam dolor pharetra. Nunc nec consequat nibh. Morbi laoreet vulputate quam mattis vestibulum. Quisque accumsan aliquam ligula eu consequat. Suspendisse potenti.			</p>
+			<p>			Sed ipsum est, sollicitudin id pharetra ut, accumsan non massa. Donec fringilla at mauris eu volutpat. Vestibulum ultrices cursus felis et viverra. Morbi vel eros neque. Suspendisse nec dolor gravida, mattis diam eu, molestie risus. Nunc pharetra efficitur lorem, sit amet maximus mauris interdum vitae. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Integer interdum pulvinar lorem, ut fermentum mi tristique sed. Praesent erat lectus, efficitur sit amet ante rutrum, pulvinar scelerisque quam. Quisque a maximus purus. Integer ut rhoncus mi. Maecenas ultricies quam condimentum orci placerat ultricies eget a ligula. Donec commodo at libero ut facilisis. Sed nec ultricies odio. Nam porttitor posuere tristique.			</p>
+			<p>			Nam volutpat ex vitae purus tempor gravida. Suspendisse ut pulvinar nunc. Morbi lobortis lorem sit amet sem dignissim, vel sollicitudin arcu sagittis. Nulla facilisi. Aliquam nec neque sed erat efficitur placerat vitae in libero. Maecenas posuere purus a lacus luctus efficitur. Proin ac sodales turpis. Duis auctor et neque sit amet molestie. Donec imperdiet, dui vitae efficitur congue, ante purus tempor nisi, nec tempor erat neque sit amet ligula. Praesent mattis sapien a magna scelerisque, eget malesuada nunc pretium. Donec egestas neque blandit velit dictum, at accumsan metus lacinia.			</p>
+			<p>			Duis in semper tellus. Maecenas eget felis vel est fringilla pellentesque vitae vel urna. Donec placerat vestibulum pharetra. Ut eu dolor semper, molestie libero ut, volutpat enim. Mauris elit ligula, convallis sed quam id, accumsan volutpat magna. Duis placerat a lorem ut ullamcorper. Pellentesque rhoncus arcu lacus. Aenean consequat tempor arcu eget faucibus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla gravida felis porttitor efficitur feugiat. Pellentesque pulvinar est congue iaculis bibendum. Aliquam erat volutpat. Maecenas lacinia consectetur felis at bibendum. Suspendisse a quam a nibh ultrices laoreet. Aenean a auctor erat.			</p>
+			<p>			Nullam egestas molestie cursus. Ut ac nibh massa. Integer arcu lectus, tristique pretium sagittis eu, ultrices at tortor. Vivamus imperdiet est in dui porttitor, non laoreet leo lacinia. Maecenas ac porttitor mi. Vivamus aliquet justo et ex tincidunt tempor. Aenean cursus velit id malesuada feugiat. Quisque pharetra, velit ut placerat tristique, ligula augue varius nisl, at aliquet nibh lorem vel magna. In et vulputate quam. Nulla arcu magna, placerat sed nunc vitae, congue euismod eros. Maecenas ut urna elementum magna laoreet porttitor. Vivamus ut consequat justo, at facilisis mi. Proin laoreet lacinia ante, at tincidunt dui posuere at. Etiam dignissim suscipit venenatis.			</p>
+			<p>			Sed venenatis justo nulla, eu gravida dolor ornare at. Proin dapibus diam id urna tincidunt, in pretium nisi tincidunt. Cras vel rhoncus purus, sit amet porta neque. Pellentesque faucibus gravida eros nec porttitor. Nullam eget justo ac odio convallis imperdiet et eu nunc. Duis ligula nisl, dictum vel tortor in, porta tristique quam. Nulla euismod consequat fringilla.			</p>
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+		</div>		
+		<footer>
+			<p style="text-align: center;">
+				Dieser Text sollte dauerhaft unten an der Seite fixiert und zentriert sein.
+			</p>
+		</footer>
+	</body>
+</html>
