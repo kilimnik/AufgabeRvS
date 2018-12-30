@@ -43,12 +43,6 @@ public class HttpServer
     private boolean online;
 
     /**
-     * Liste von verbundenen Rechnern
-     */
-    private List<Socket> connectedClients;
-
-
-    /**
      * Beispiel Dokumentation fuer diesen Konstruktor:
      * Der Server wird initialisiert und der gewuenschte Port
      * gespeichert.
@@ -59,8 +53,6 @@ public class HttpServer
     public HttpServer(int port)
     {
         this.port = port;
-
-        connectedClients = new ArrayList<>();
 
         try {
             serverSocket = new ServerSocket();
@@ -86,8 +78,6 @@ public class HttpServer
                     try {
                         Socket client = serverSocket.accept();
 
-                        connectedClients.add(client);
-
                         PrintWriter out = new PrintWriter(
                                 client.getOutputStream(), true
                         );
@@ -103,6 +93,12 @@ public class HttpServer
 
                             Response response = new Response(request, out);
                             response.sendResponse();
+
+                            try {
+                                client.close();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         });
 
                         clientThread.start();
@@ -124,10 +120,6 @@ public class HttpServer
 
         try {
             serverSocket.close();
-
-            for(Socket socket:connectedClients){
-                socket.close();
-            }
 
         } catch (IOException e) {
             e.printStackTrace();

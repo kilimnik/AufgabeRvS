@@ -1,9 +1,11 @@
 package edu.udo.cs.rvs.request;
 
+import edu.udo.cs.rvs.DateFormatter;
 import edu.udo.cs.rvs.HTTPVersion;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.Date;
 
 public class Request {
 
@@ -26,6 +28,11 @@ public class Request {
      * Datei oder Pfad welcher angefragt wird
      */
     private String requestedPath;
+
+    /**
+     * Zeit für das Conditional GET
+     */
+    private long isModifiedSinceDate;
 
     public Request(BufferedReader reader) {
         initRequestString(reader);
@@ -57,6 +64,16 @@ public class Request {
             String[] parts = request.split("\r\n");
 
             decodeRequestHead(parts[0]);
+
+            if (requestMethod == RequestMethod.GET){
+                for (String p:parts){
+                    if (p.startsWith("If-Modified-Since")){
+                        p = p.replaceFirst("If-Modified-Since: ", "");
+
+                        isModifiedSinceDate = DateFormatter.parseDate(p).getTime();
+                    }
+                }
+            }
         }
     }
 
@@ -123,5 +140,9 @@ public class Request {
 
     public String getRequest() {
         return request;
+    }
+
+    public long getIsModifiedSinceDate() {
+        return isModifiedSinceDate;
     }
 }
