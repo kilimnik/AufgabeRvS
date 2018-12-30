@@ -108,8 +108,8 @@ public class Response {
 
         StringBuilder responseBuilder = new StringBuilder();
 
-        responseBuilder.append(decodeHttpVersion()).append(" ");
-        responseBuilder.append(decodeResponseStatus()).append("\r\n");
+        responseBuilder.append(encodeHttpVersion()).append(" ");
+        responseBuilder.append(encodeResponseStatus()).append("\r\n");
 
         if (error){
             responseBody = buildErrorResponseBody();
@@ -122,7 +122,7 @@ public class Response {
         outputWriter.println(responseBuilder.toString());
     }
 
-    private String decodeHttpVersion() {
+    private String encodeHttpVersion() {
         switch (httpVersion){
             case HTTP_1_0:
                 return "HTTP/1.0";
@@ -135,11 +135,11 @@ public class Response {
         return "";
     }
 
-    private String decodeResponseStatus() {
+    private String encodeResponseStatus() {
         switch (responseCode){
             case OK_200:
                 return "200 OK";
-            case NO_CONNTENT_204:
+            case NO_CONTENT_204:
                 return "204 No Content";
             case NOT_MODIFIED_304:
                 return "304 Not Modified";
@@ -166,7 +166,7 @@ public class Response {
                             "<head></head>\n" +
                             "<body>\n");
         stringBuilder.append("Error Status Code: ");
-        stringBuilder.append(decodeResponseStatus());
+        stringBuilder.append(encodeResponseStatus());
         stringBuilder.append("\n</body>" +
                             "\n</html>");
 

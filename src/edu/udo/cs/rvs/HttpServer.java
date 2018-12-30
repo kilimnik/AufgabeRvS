@@ -68,6 +68,7 @@ public class HttpServer
      */
     public void startServer()
     {
+        System.out.println("Starting Server on Port " + port);
         online = true;
 
         try {
