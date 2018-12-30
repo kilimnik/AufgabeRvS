@@ -20,6 +20,9 @@ import java.util.*;
  */
 public class HttpServer
 {
+
+    private static final String TEST_HTML = "<!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML 2.0//EN\"> <html><head> <title>302 Found</title> </head><body> <h1>Found</h1> <p>GodOfTheInternet Webserver is working!!</p> <hr> </body></html>";
+
     /**
      * Beispiel Dokumentation fuer dieses Attribut:
      * Dieses Attribut gibt den Basis-Ordner fuer den HTTP-Server an.
@@ -102,7 +105,7 @@ public class HttpServer
                             Request request = new Request(in);
 
                             Response response = new Response(request, out);
-                            response.sendResponse();
+                            response.sendResponse(TEST_HTML);
                         });
 
                         clientThread.start();

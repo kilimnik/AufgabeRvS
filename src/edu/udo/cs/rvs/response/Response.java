@@ -75,9 +75,12 @@ public class Response {
     }
 
 
-    public void sendResponse(){
+    public void sendResponse(String content){
         if (request.getRequest().equals("")){
             return;
+        }
+        if (this.error) {
+            content = "";
         }
 
         StringBuilder builder = new StringBuilder();
@@ -85,11 +88,16 @@ public class Response {
         builder.append(encodeHttpVersion()).append(" ");
         builder.append(encodeResponseStatus()).append("\r\n");
 
-        builder.append("Content-Length: 0\r\n");
+        builder.append("Server: godofinternet").append("\r\n");
+
+        builder.append("Content-Length: ").append(content.length()).append("\r\n");
+
+        builder.append("\r\n");
+
+        //content
+        builder.append(content).append("\r\n");
 
         outputWriter.println(builder.toString());
-
-
     }
 
     private String encodeHttpVersion() {
