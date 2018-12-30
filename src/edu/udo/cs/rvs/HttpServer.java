@@ -92,7 +92,12 @@ public class HttpServer
                         Thread clientThread = new Thread(() -> {
                             Request request = new Request(in);
 
-                            Response response = new Response(request, out);
+                            Response response = null;
+                            try {
+                                response = new Response(request, client.getOutputStream());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                             response.sendResponse();
 
                             try {

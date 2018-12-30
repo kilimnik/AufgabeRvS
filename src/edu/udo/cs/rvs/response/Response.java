@@ -4,18 +4,12 @@ import edu.udo.cs.rvs.HTTPVersion;
 import edu.udo.cs.rvs.request.Request;
 import edu.udo.cs.rvs.request.RequestMethod;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 import java.util.Stack;
 
 public class Response {
@@ -28,7 +22,7 @@ public class Response {
     /**
      * Antwort schreiber an den Nutzer
      */
-    private PrintWriter outputWriter;
+    private OutputStream outputWriter;
 
     /**
      * Wenn wahr, dann gibt die Antwort einen Fehler aus
@@ -51,11 +45,16 @@ public class Response {
     private String filePath;
 
     /**
-     * Körper der Antwort
+     * Körper der Antwort in Byte Array
      */
-    private String responseBody = "";
+    private byte[] responseBodyBytes;
 
-    public Response(Request request, PrintWriter printWriter) {
+    /**
+     * MIME-Typ der Antwort
+     */
+    private String contentType;
+
+    public Response(Request request, OutputStream printWriter) {
         this.request = request;
         this.outputWriter = printWriter;
 
@@ -110,14 +109,20 @@ public class Response {
         responseBuilder.append(encodeResponseStatus()).append("\r\n");
 
         if (error){
-            responseBody = buildErrorResponseBody();
+            responseBodyBytes = buildErrorResponseBodyBytes();
         }
 
-        responseBuilder.append("Content-Length: ").append(responseBody.getBytes().length).append("\r\n\r\n");
+        responseBuilder.append("Content-Length: ").append(responseBodyBytes.length).append("\r\n");
+        responseBuilder.append("Content-Type: ").append(contentType).append("\r\n\r\n");
 
-        responseBuilder.append(responseBody).append("\r\n");
+        try {
+            outputWriter.write(responseBuilder.toString().getBytes());
+            outputWriter.write(responseBodyBytes);
+            outputWriter.write("\r\n".getBytes());
 
-        outputWriter.println(responseBuilder.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private String encodeHttpVersion() {
@@ -156,7 +161,7 @@ public class Response {
         return "";
     }
 
-    private String buildErrorResponseBody(){
+    private byte[] buildErrorResponseBodyBytes(){
         StringBuilder stringBuilder = new StringBuilder();
 
         stringBuilder.append("<!DOCTYPE html>\n" +
@@ -168,11 +173,11 @@ public class Response {
         stringBuilder.append("\n</body>" +
                             "\n</html>");
 
-        return stringBuilder.toString();
+        return stringBuilder.toString().getBytes();
     }
 
     private boolean checkAndBuildNormalResponseBody(){
-        String response = "";
+        byte[] response = new byte[0];
 
         if (!checkPathForSecurity()){
             responseCode = ResponseCode.FORBIDDEN_403;
@@ -215,9 +220,15 @@ public class Response {
                 }
             }
 
-            byte[] encoded = Files.readAllBytes(path);
+            decodeContentType(file);
 
-            response = new String(encoded, StandardCharsets.UTF_8);
+            response = Files.readAllBytes(path);
+
+            if (contentType.startsWith("text")){
+                response = new String(response, StandardCharsets.UTF_8).getBytes();
+            }
+
+
         } catch (NoSuchFileException e){
             responseCode = ResponseCode.NOT_FOUND_404;
 
@@ -226,9 +237,25 @@ public class Response {
             e.printStackTrace();
         }
 
-        responseBody = response;
+        responseBodyBytes = response;
 
         return true;
+    }
+
+    private void decodeContentType(File file) {
+        if (file.getName().endsWith(".txt")){
+            contentType = "text/plain; charset=utf-8";
+        }else if (file.getName().endsWith(".html") || file.getName().endsWith(".htm")){
+            contentType = "text/html; charset=utf-8";
+        }else if (file.getName().endsWith("css")){
+            contentType = "text/css; charset=utf-8";
+        }else if (file.getName().endsWith(".ico")){
+            contentType = " image/x-icon";
+        }else if (file.getName().endsWith(".pdf")){
+            contentType = "application/pdf";
+        }else {
+            contentType = "application/octet-stream";
+        }
     }
 
     private boolean checkPathForSecurity(){

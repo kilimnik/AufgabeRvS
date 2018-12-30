@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2c87fdf4-7f9f-4a6d-9620-301fdf52583f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/edu/udo/cs/rvs/DateFormatter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/edu/udo/cs/rvs/HttpServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/edu/udo/cs/rvs/HttpServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/edu/udo/cs/rvs/request/Request.java" beforeDir="false" afterPath="$PROJECT_DIR$/edu/udo/cs/rvs/request/Request.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/edu/udo/cs/rvs/response/Response.java" beforeDir="false" afterPath="$PROJECT_DIR$/edu/udo/cs/rvs/response/Response.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -34,8 +30,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/edu/udo/cs/rvs/HttpServer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="96" column="33" lean-forward="true" selection-start-line="96" selection-start-column="33" selection-end-line="96" selection-end-column="33" />
+            <state relative-caret-position="465">
+              <caret line="102" column="27" lean-forward="true" selection-start-line="102" selection-start-column="27" selection-end-line="102" selection-end-column="27" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -46,8 +42,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/edu/udo/cs/rvs/response/Response.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="287">
-              <caret line="203" column="54" lean-forward="true" selection-start-line="203" selection-start-column="54" selection-end-line="203" selection-end-column="54" />
+            <state relative-caret-position="682">
+              <caret line="216" lean-forward="true" selection-start-line="216" selection-end-line="216" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -68,7 +64,7 @@
         <entry file="file://$PROJECT_DIR$/edu/udo/cs/rvs/response/ResponseCode.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="45">
-              <caret line="3" column="140" selection-start-line="3" selection-start-column="121" selection-end-line="3" selection-end-column="140" />
+              <caret line="3" column="139" selection-start-line="3" selection-start-column="120" selection-end-line="3" selection-end-column="139" />
             </state>
           </provider>
         </entry>
@@ -143,10 +139,10 @@
         <option value="$PROJECT_DIR$/edu/udo/cs/rvs/request/RequestMethods.java" />
         <option value="$PROJECT_DIR$/edu/udo/cs/rvs/request/HTTPVersion.java" />
         <option value="$PROJECT_DIR$/edu/udo/cs/rvs/response/ResponseCode.java" />
-        <option value="$PROJECT_DIR$/edu/udo/cs/rvs/HttpServer.java" />
         <option value="$PROJECT_DIR$/edu/udo/cs/rvs/MyDateFormatter.java" />
         <option value="$PROJECT_DIR$/edu/udo/cs/rvs/request/Request.java" />
         <option value="$PROJECT_DIR$/edu/udo/cs/rvs/DateFormatter.java" />
+        <option value="$PROJECT_DIR$/edu/udo/cs/rvs/HttpServer.java" />
         <option value="$PROJECT_DIR$/edu/udo/cs/rvs/response/Response.java" />
       </list>
     </option>
@@ -198,7 +194,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1546187079490" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1546189124521" />
     <property name="last.edited.regexp" value="&quot;d\r\ndw&quot;" />
     <property name="restartRequiresConfirmation" value="false" />
   </component>
@@ -245,7 +241,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1546100941243</updated>
-      <workItem from="1546100944687" duration="29455000" />
+      <workItem from="1546100944687" duration="30577000" />
     </task>
     <task id="LOCAL-00001" summary="Server startet und gibt 501 bei Falscher Methode aus. Sonst 200.">
       <created>1546121866700</created>
@@ -254,15 +250,28 @@
       <option name="project" value="LOCAL" />
       <updated>1546121866700</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Stuff">
+      <created>1546187061135</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1546187061135</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Stuff">
+      <created>1546187245277</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1546187245277</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="29455000" />
+    <option name="totallyTimeSpent" value="30577000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="26" width="1920" height="1054" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Image Layers" />
       <window_info id="Designer" />
@@ -280,7 +289,7 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32937366" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.39956802" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39956802" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -300,7 +309,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Server startet und gibt 501 bei Falscher Methode aus. Sonst 200." />
-    <option name="LAST_COMMIT_MESSAGE" value="Server startet und gibt 501 bei Falscher Methode aus. Sonst 200." />
+    <MESSAGE value="Stuff" />
+    <option name="LAST_COMMIT_MESSAGE" value="Stuff" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
@@ -401,8 +411,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/edu/udo/cs/rvs/HttpServer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="96" column="33" lean-forward="true" selection-start-line="96" selection-start-column="33" selection-end-line="96" selection-end-column="33" />
+        <state relative-caret-position="465">
+          <caret line="102" column="27" lean-forward="true" selection-start-line="102" selection-start-column="27" selection-end-line="102" selection-end-column="27" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -423,7 +433,7 @@
     <entry file="file://$PROJECT_DIR$/edu/udo/cs/rvs/response/ResponseCode.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
-          <caret line="3" column="140" selection-start-line="3" selection-start-column="121" selection-end-line="3" selection-end-column="140" />
+          <caret line="3" column="139" selection-start-line="3" selection-start-column="120" selection-end-line="3" selection-end-column="139" />
         </state>
       </provider>
     </entry>
@@ -458,8 +468,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/edu/udo/cs/rvs/response/Response.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="287">
-          <caret line="203" column="54" lean-forward="true" selection-start-line="203" selection-start-column="54" selection-end-line="203" selection-end-column="54" />
+        <state relative-caret-position="682">
+          <caret line="216" lean-forward="true" selection-start-line="216" selection-end-line="216" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
