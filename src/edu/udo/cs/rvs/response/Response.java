@@ -209,7 +209,7 @@ public class Response {
 
 
                 if (!foundIndex){
-                    responseCode = ResponseCode.NO_CONNTENT_204;
+                    responseCode = ResponseCode.NO_CONTENT_204;
 
                     return false;
                 }
