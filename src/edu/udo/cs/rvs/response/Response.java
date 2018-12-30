@@ -59,9 +59,7 @@ public class Response {
         this.request = request;
         this.outputWriter = printWriter;
 
-        filePath = new File("").getAbsolutePath();
-        filePath = filePath.substring(0, filePath.length() - 4);
-        filePath = filePath + "/wwwroot/";
+        filePath = new File("wwwroot").getAbsolutePath();
 
         if (!request.getRequest().equals("")) {
             initResponse();
@@ -183,7 +181,9 @@ public class Response {
         }
 
         try {
-            Path path = Paths.get(filePath,request.getRequestedPath());
+            String safeRequestPath = request.getRequestedPath().replace("/", File.separator);
+
+            Path path = Paths.get(filePath, safeRequestPath);
 
             File file = path.toFile();
             if (file.isDirectory()){
@@ -232,18 +232,20 @@ public class Response {
     }
 
     private boolean checkPathForSecurity(){
-        Path path = Paths.get(filePath,request.getRequestedPath());
-        String absolutPath = path.toAbsolutePath().toString();
-        absolutPath = decodeAbsolutPath(absolutPath);
+        String safeFilePath = filePath.replace("\\", "/");
 
-        if (absolutPath.startsWith(filePath)){
+        Path path = Paths.get(safeFilePath, request.getRequestedPath());
+        String absolutePath = path.toAbsolutePath().toString();
+        absolutePath = decodeAbsolutePath(absolutePath);
+
+        if (absolutePath.startsWith(filePath)){
             return true;
         }
 
         return false;
     }
 
-    private String decodeAbsolutPath(String path){
+    private String decodeAbsolutePath(String path){
         Stack<String> stringStack = new Stack<>();
 
         String[] pathParts = path.split("/");
