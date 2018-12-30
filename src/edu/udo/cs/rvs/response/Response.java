@@ -117,7 +117,12 @@ public class Response {
 
         try {
             outputWriter.write(responseBuilder.toString().getBytes());
-            outputWriter.write(responseBodyBytes);
+
+            if (request.getRequestMethod() != RequestMethod.HEAD) {
+                outputWriter.write(responseBodyBytes);
+            }
+
+
             outputWriter.write("\r\n".getBytes());
 
         } catch (IOException e) {
