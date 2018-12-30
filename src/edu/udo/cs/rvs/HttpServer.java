@@ -4,7 +4,6 @@ import edu.udo.cs.rvs.request.Request;
 import edu.udo.cs.rvs.response.Response;
 
 import java.io.*;
-import java.lang.*;
 import java.net.*;
 import java.util.*;
 
@@ -76,6 +75,7 @@ public class HttpServer
      */
     public void startServer()
     {
+        System.out.println("Starting Server on Port " + port);
         online = true;
 
         try {

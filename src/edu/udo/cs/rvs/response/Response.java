@@ -5,8 +5,6 @@ import edu.udo.cs.rvs.request.Request;
 import edu.udo.cs.rvs.request.RequestMethod;
 
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
-import java.util.Date;
 
 public class Response {
 
@@ -84,8 +82,8 @@ public class Response {
 
         StringBuilder builder = new StringBuilder();
 
-        builder.append(decodeHttpVersion()).append(" ");
-        builder.append(decodeResponseStatus()).append("\r\n");
+        builder.append(encodeHttpVersion()).append(" ");
+        builder.append(encodeResponseStatus()).append("\r\n");
 
         builder.append("Content-Length: 0\r\n");
 
@@ -94,7 +92,7 @@ public class Response {
 
     }
 
-    private String decodeHttpVersion() {
+    private String encodeHttpVersion() {
         switch (httpVersion){
             case HTTP_1_0:
                 return "HTTP/1.0";
@@ -107,11 +105,11 @@ public class Response {
         return "";
     }
 
-    private String decodeResponseStatus() {
+    private String encodeResponseStatus() {
         switch (responseCode){
             case OK_200:
                 return "200 OK";
-            case NO_CONNTENT_204:
+            case NO_CONTENT_204:
                 return "204 No Content";
             case NOT_MODIFIED_304:
                 return "304 Not Modified";

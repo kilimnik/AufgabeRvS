@@ -29,6 +29,8 @@ public class Request {
 
     public Request(BufferedReader reader) {
         initRequestString(reader);
+
+        decodeRequest();
     }
 
     private void initRequestString(BufferedReader reader){
@@ -45,8 +47,6 @@ public class Request {
             }
 
             request = builder.toString();
-
-            decodeRequest();
         }catch (IOException e){
             e.printStackTrace();
         }
