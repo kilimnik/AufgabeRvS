@@ -54,7 +54,7 @@ public class Response {
      */
     private String contentType;
 
-    public Response(Request request, OutputStream printWriter) {
+    public Response(Request request, OutputStream printWriter) throws Exception{
         this.request = request;
         this.outputWriter = printWriter;
 
@@ -65,7 +65,7 @@ public class Response {
         }
     }
 
-    private void initResponse(){
+    private void initResponse() throws Exception{
         httpVersion = request.getHttpVersion();
 
         if (checkHttpVersion() || checkImplementedRequestMethod() || !checkAndBuildNormalResponseBody()){
@@ -98,7 +98,7 @@ public class Response {
     }
 
 
-    public void sendResponse(){
+    public void sendResponse() throws Exception{
         if (request.getRequest().equals("")){
             return;
         }
@@ -115,19 +115,14 @@ public class Response {
         responseBuilder.append("Content-Length: ").append(responseBodyBytes.length).append("\r\n");
         responseBuilder.append("Content-Type: ").append(contentType).append("\r\n\r\n");
 
-        try {
-            outputWriter.write(responseBuilder.toString().getBytes());
+        outputWriter.write(responseBuilder.toString().getBytes());
 
-            if (request.getRequestMethod() != RequestMethod.HEAD) {
-                outputWriter.write(responseBodyBytes);
-            }
-
-
-            outputWriter.write("\r\n".getBytes());
-
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (request.getRequestMethod() != RequestMethod.HEAD) {
+            outputWriter.write(responseBodyBytes);
         }
+
+
+        outputWriter.write("\r\n".getBytes());
     }
 
     private String encodeHttpVersion() {
@@ -181,7 +176,7 @@ public class Response {
         return stringBuilder.toString().getBytes();
     }
 
-    private boolean checkAndBuildNormalResponseBody(){
+    private boolean checkAndBuildNormalResponseBody() throws Exception{
         byte[] response = new byte[0];
 
         if (!checkPathForSecurity()){
@@ -238,8 +233,6 @@ public class Response {
             responseCode = ResponseCode.NOT_FOUND_404;
 
             return false;
-        } catch (IOException e) {
-            e.printStackTrace();
         }
 
         responseBodyBytes = response;
@@ -294,5 +287,25 @@ public class Response {
             builder.append(s).append("/");});
 
         return builder.toString();
+    }
+
+    public static void sendErrorResponse(PrintWriter out, Exception e){
+        StringWriter stringWriter = new StringWriter();
+        PrintWriter printWriter = new PrintWriter(stringWriter);
+        e.printStackTrace(printWriter);
+        String stackTrace = stringWriter.toString();
+
+        StringBuilder responseBuilder = new StringBuilder();
+
+        responseBuilder.append("HTTP/1.0 ");
+        responseBuilder.append("501 Not Implemented\r\n");
+
+        responseBuilder.append("Content-Length: ").append(stackTrace.length()).append("\r\n");
+        responseBuilder.append("Content-Type: ").append("text/plain; charset=utf-8").append("\r\n\r\n");
+
+        responseBuilder.append(stackTrace);
+
+        out.println(responseBuilder.toString());
+
     }
 }

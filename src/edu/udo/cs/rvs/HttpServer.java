@@ -90,20 +90,17 @@ public class HttpServer
                         );
 
                         Thread clientThread = new Thread(() -> {
-                            Request request = new Request(in);
-
-                            Response response = null;
                             try {
-                                response = new Response(request, client.getOutputStream());
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                            response.sendResponse();
+                                Request request = new Request(in);
 
-                            try {
+                                Response response = new Response(request, client.getOutputStream());
+
+                                response.sendResponse();
+
                                 client.close();
-                            } catch (IOException e) {
-                                e.printStackTrace();
+
+                            } catch (Exception e) {
+                                Response.sendErrorResponse(out, e);
                             }
                         });
 

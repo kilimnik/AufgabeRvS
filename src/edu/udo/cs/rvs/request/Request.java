@@ -34,29 +34,25 @@ public class Request {
      */
     private long isModifiedSinceDate;
 
-    public Request(BufferedReader reader) {
+    public Request(BufferedReader reader) throws Exception{
         initRequestString(reader);
 
         decodeRequest();
     }
 
-    private void initRequestString(BufferedReader reader){
+    private void initRequestString(BufferedReader reader) throws Exception{
         StringBuilder builder = new StringBuilder();
 
         String line = "";
 
-        try {
-            while ((line = reader.readLine()) != null) {
-                builder.append(line).append("\r\n");
-                if (line.isEmpty()) {
-                    break;
-                }
+        while ((line = reader.readLine()) != null) {
+            builder.append(line).append("\r\n");
+            if (line.isEmpty()) {
+                break;
             }
-
-            request = builder.toString();
-        }catch (IOException e){
-            e.printStackTrace();
         }
+
+        request = builder.toString();
     }
 
     private void decodeRequest(){
