@@ -1,6 +1,7 @@
 package edu.udo.cs.rvs.response;
 
 import edu.udo.cs.rvs.HTTPVersion;
+import edu.udo.cs.rvs.HttpServer;
 import edu.udo.cs.rvs.request.Request;
 import edu.udo.cs.rvs.request.RequestMethod;
 
@@ -12,6 +13,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Stack;
 
+/**
+ * Antwort erstellen und versenden
+ */
 public class Response {
 
     /**
@@ -54,27 +58,43 @@ public class Response {
      */
     private String contentType;
 
+    /**
+     * Antwort erstellen und Initialisieren
+     *
+     * @param request Anfrage
+     * @param printWriter Objekt um Antwort zu verschicken
+     *
+     * @throws Exception Wird geworfen falls es zu einem unerwartetem Fehler kommt
+     */
     public Response(Request request, OutputStream printWriter) throws Exception{
         this.request = request;
         this.outputWriter = printWriter;
 
-        filePath = new File("wwwroot").getAbsolutePath();
+        filePath = HttpServer.wwwroot.getAbsolutePath();
 
         if (!request.getRequest().equals("")) {
             initResponse();
         }
     }
 
+    /**
+     * Initialisierung der Antwort
+     *
+     * @throws Exception Wird geworfen falls es zu einem unerwartetem Fehler kommt
+     */
     private void initResponse() throws Exception{
         httpVersion = request.getHttpVersion();
 
         if (checkHttpVersion() || checkImplementedRequestMethod() || !checkAndBuildNormalResponseBody()){
             error = true;
         }
-
-
     }
 
+    /**
+     * Prüft ob die HTTP Version verarbeitet werden kann und setzt den Status Code auf 400 falls die Version nicht verarbeitet werden kann
+     *
+     * @return Wahr wenn Version 2.0 ist
+     */
     private boolean checkHttpVersion()
     {
         if (httpVersion == HTTPVersion.HTTP_2_0){
@@ -86,6 +106,11 @@ public class Response {
         return false;
     }
 
+    /**
+     * Prüft ob die Anfrage Methode verarbeitet werden kann und setzt den Status Code auf 501 falls die Methode nicht verarbeitet werden können
+     *
+     * @return Wahr wenn Methode nicht GET, HEAD oder Post ist.
+     */
     private boolean checkImplementedRequestMethod()
     {
         if (request.getRequestMethod() != RequestMethod.GET && request.getRequestMethod() != RequestMethod.HEAD && request.getRequestMethod() != RequestMethod.POST){
@@ -97,7 +122,11 @@ public class Response {
         return false;
     }
 
-
+    /**
+     * Versendet und erstellt die Antwort
+     *
+     * @throws Exception Wird geworfen, falls es beim senden zu einem unerwarteten Fehler kam
+     */
     public void sendResponse() throws Exception{
         if (request.getRequest().equals("")){
             return;
@@ -113,7 +142,12 @@ public class Response {
         }
 
         responseBuilder.append("Content-Length: ").append(responseBodyBytes.length).append("\r\n");
-        responseBuilder.append("Content-Type: ").append(contentType).append("\r\n\r\n");
+
+        if (error){
+            responseBuilder.append("Content-Type: text/plain; charset=utf-8\r\n\r\n");
+        }else {
+            responseBuilder.append("Content-Type: ").append(contentType).append("\r\n\r\n");
+        }
 
         outputWriter.write(responseBuilder.toString().getBytes());
 
@@ -125,6 +159,11 @@ public class Response {
         outputWriter.write("\r\n".getBytes());
     }
 
+    /**
+     * Encodieren der Http Version zum String
+     *
+     * @return String der Http Version
+     */
     private String encodeHttpVersion() {
         switch (httpVersion){
             case HTTP_1_0:
@@ -138,6 +177,11 @@ public class Response {
         return "";
     }
 
+    /**
+     * Encodieren der Status Codes
+     *
+     * @return Status Code als String
+     */
     private String encodeResponseStatus() {
         switch (responseCode){
             case OK_200:
@@ -161,21 +205,27 @@ public class Response {
         return "";
     }
 
+    /**
+     * Erstellt eine Fehlermeldungs Body für die Antwort
+     *
+     * @return byte Array des Bodys
+     */
     private byte[] buildErrorResponseBodyBytes(){
         StringBuilder stringBuilder = new StringBuilder();
 
-        stringBuilder.append("<!DOCTYPE html>\n" +
-                            "<html>\n" +
-                            "<head></head>\n" +
-                            "<body>\n");
         stringBuilder.append("Error Status Code: ");
         stringBuilder.append(encodeResponseStatus());
-        stringBuilder.append("\n</body>" +
-                            "\n</html>");
 
         return stringBuilder.toString().getBytes();
     }
 
+    /**
+     * Prüft ob ein normaler Antwort body erstellt werden kann ohne einen Fehler.
+     *
+     * @return Gibt zurück ob es zu einem Fehler gekommen ist
+     *
+     * @throws Exception Wird geworfen falls es zu einem unverarbeitbaren Fehler gekommen ist
+     */
     private boolean checkAndBuildNormalResponseBody() throws Exception{
         byte[] response = new byte[0];
 
@@ -207,6 +257,8 @@ public class Response {
                 }
 
                 if (request.getIsModifiedSinceDate() > file.lastModified()){
+                    //Datei ist abgelaufen
+
                     responseCode = ResponseCode.NOT_MODIFIED_304;
 
                     return false;
@@ -214,6 +266,8 @@ public class Response {
 
 
                 if (!foundIndex){
+                    //Pfad führt zu einem Ordner und nicht zu einer Datei
+
                     responseCode = ResponseCode.NO_CONTENT_204;
 
                     return false;
@@ -230,6 +284,8 @@ public class Response {
 
 
         } catch (NoSuchFileException e){
+            //Keine Datei unter diesem Pfad gefunden. Datei Existiert nicht
+
             responseCode = ResponseCode.NOT_FOUND_404;
 
             return false;
@@ -240,6 +296,11 @@ public class Response {
         return true;
     }
 
+    /**
+     * Decodieren des Dateityps
+     *
+     * @param file Datei Mime Typ als String
+     */
     private void decodeContentType(File file) {
         if (file.getName().endsWith(".txt")){
             contentType = "text/plain; charset=utf-8";
@@ -256,6 +317,11 @@ public class Response {
         }
     }
 
+    /**
+     * Prüft ob auf Datei zugergriffen werden darf.
+     *
+     * @return Gibt zurück ob Pfad außerhalb des erlaubten Bereichs
+     */
     private boolean checkPathForSecurity(){
         String safeFilePath = filePath.replace("\\", "/");
 
@@ -270,6 +336,13 @@ public class Response {
         return false;
     }
 
+    /**
+     * Decodiert den Absoluten Pfad zu einem Pfad ohne Backtracking
+     *
+     * @param path Ganzer Pfad mit Backtracking
+     *
+     * @return Neuer Pfad ohne Backtracking
+     */
     private String decodeAbsolutePath(String path){
         Stack<String> stringStack = new Stack<>();
 
@@ -289,6 +362,12 @@ public class Response {
         return builder.toString();
     }
 
+    /**
+     * Sendet Fehler Antwort falls es zu einem unerwarteten und unverarbeitbaren Fehler gekommen ist
+     *
+     * @param out Objekt um Antwort zu versenden
+     * @param e Fehler welcher geworfen wurde
+     */
     public static void sendErrorResponse(PrintWriter out, Exception e){
         StringWriter stringWriter = new StringWriter();
         PrintWriter printWriter = new PrintWriter(stringWriter);

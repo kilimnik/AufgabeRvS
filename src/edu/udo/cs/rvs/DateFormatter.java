@@ -2,7 +2,19 @@ package edu.udo.cs.rvs;
 
 import java.util.Date;
 
+/**
+ * Klasse welche einen String in ein Datum konvertiert
+ */
 public class DateFormatter {
+
+    /**
+     * Konvertiert einen String in ein Datum Objekt
+     *
+     * @param dateString String des Datums
+     *
+     * @return Datum Objekt erzeugt aus dem String
+     */
+    @SuppressWarnings("deprecation")
     public static Date parseDate(String dateString){
         Date date = new Date();
 
@@ -19,6 +31,12 @@ public class DateFormatter {
         return date;
     }
 
+    /**
+     * Wandelt einen Monats String zu einer Zahl des Monats
+     *
+     * @param month String des Monats (3 Zeichern lang)
+     * @return Zahl 0-11 (0: Januar, 11: Dezember)
+     */
     private static int decodeMonth(String month){
         switch (month){
             case "Jan":
