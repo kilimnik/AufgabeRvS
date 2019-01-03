@@ -16,8 +16,8 @@ import java.util.*;
  * Ausnahmen (Exceptions) sinnvoll zu behandeln.
  *
  * @author Daniel Kilimnik, 201143
- * @author Vorname Nachname, Matrikelnummer
- * @author Vorname Nachname, Matrikelnummer
+ * @author Leonard Fricke, 201173
+ * @author Sönke Tiemann, 205951
  */
 public class HttpServer
 {
@@ -64,7 +64,10 @@ public class HttpServer
      */
     private void init(int port){
         this.port = port;
-
+        if(port < 0 || port > 65535){
+            System.out.println("Given Port was out of Range - Defaulting to 80");
+            this.port = 80;
+        }
         try {
             serverSocket = new ServerSocket();
         } catch (IOException e) {
@@ -162,8 +165,6 @@ public class HttpServer
                 }else if (splits[0].equalsIgnoreCase("port") && (splits.length == 1 || (splits.length == 2 && port != -1))){
                     if (splits.length == 1){
                         System.out.println("Server connected to Port " + this.port + ".");
-                    }else if(splits.length == 2 && port > 65535){
-                        System.out.println("Server was unable to connect to Port : port out of range");
                     }else{
                         System.println(port);
                         dispose();
