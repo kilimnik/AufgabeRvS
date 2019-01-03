@@ -83,7 +83,9 @@ public class HttpServer
     {
         System.out.println("Starting Server on Port " + port);
         if(!available(port)){
-            throw new IllegalStateException("Given Port is already in use by another Application");
+            System.out.println("Server start failed: -Port is already in use by another application");
+            online = false;
+            return;
         }
         
         online = true;
@@ -145,9 +147,11 @@ public class HttpServer
      * @param port
      *            der zu überprüfende Port
      */
-    public static boolean available(int port) {
-    if (port < 0 || port > MAX_PORT_NUMBER) {
-        throw new IllegalArgumentException("Given Port is out of range " + port);
+    public static boolean available(int port){
+    if (port < 0 || port > 65535) {
+        //throw new IllegalArgumentException("Given Port is out of range " + port);
+
+        return false;
     }
 
     ServerSocket ss = null;
@@ -208,7 +212,6 @@ public class HttpServer
                     if (splits.length == 1){
                         System.out.println("Server connected to Port " + this.port + ".");
                     }else{
-                        System.println(port);
                         dispose();
 
                         init(port);
