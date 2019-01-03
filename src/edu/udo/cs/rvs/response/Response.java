@@ -229,6 +229,7 @@ public class Response {
     private boolean checkAndBuildNormalResponseBody() throws Exception{
         byte[] response = new byte[0];
 
+        //Prüfen ob Pfad außerhalb von wwwroot
         if (!checkPathForSecurity()){
             responseCode = ResponseCode.FORBIDDEN_403;
 
@@ -241,6 +242,14 @@ public class Response {
             Path path = Paths.get(filePath, safeRequestPath);
 
             File file = path.toFile();
+
+            //Prüfen ob Datei gelsen werden draf
+            if (!file.canRead()){
+                responseCode = ResponseCode.FORBIDDEN_403;
+
+                return false;
+            }
+
             if (file.isDirectory()){
                 File[] files = file.listFiles();
 
