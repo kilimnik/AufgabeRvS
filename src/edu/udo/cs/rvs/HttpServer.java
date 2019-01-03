@@ -162,7 +162,10 @@ public class HttpServer
                 }else if (splits[0].equalsIgnoreCase("port") && (splits.length == 1 || (splits.length == 2 && port != -1))){
                     if (splits.length == 1){
                         System.out.println("Server connected to Port " + this.port + ".");
-                    }else {
+                    }else if(splits.length == 2 && port > 65535){
+                        System.out.println("Server was unable to connect to Port : port out of range");
+                    }else{
+                        System.println(port);
                         dispose();
 
                         init(port);
