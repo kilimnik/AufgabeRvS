@@ -82,6 +82,10 @@ public class HttpServer
     public void startServer()
     {
         System.out.println("Starting Server on Port " + port);
+        if(!available(port)){
+            throw new IllegalStateException("Given Port is already in use by another Application");
+        }
+        
         online = true;
 
         initCommands();
@@ -133,6 +137,44 @@ public class HttpServer
             e.printStackTrace();
         }
     }
+    
+    
+    /**
+     * Überprüft, ob der übergebene Port frei ist
+
+     * @param port
+     *            der zu überprüfende Port
+     */
+    public static boolean available(int port) {
+    if (port < 0 || port > MAX_PORT_NUMBER) {
+        throw new IllegalArgumentException("Given Port is out of range " + port);
+    }
+
+    ServerSocket ss = null;
+    DatagramSocket ds = null;
+    try {
+        ss = new ServerSocket(port);
+        ss.setReuseAddress(true);
+        ds = new DatagramSocket(port);
+        ds.setReuseAddress(true);
+        return true;
+    } catch (IOException e) {
+    } finally {
+        if (ds != null) {
+            ds.close();
+        }
+
+        if (ss != null) {
+            try {
+                ss.close();
+            } catch (IOException e) {
+                /* should not be thrown */
+            }
+        }
+    }
+
+    return false;
+}
 
     /**
      * Initialisierung der verfügabren Kommados
