@@ -52,7 +52,7 @@ public class HttpServer
      */
     public HttpServer(int port)
     {
-        System.out.println("Type \"help\" for a list of available commadns.");
+        System.out.println("Type \"help\" for a list of available commands.");
         init(port);
     }
 
