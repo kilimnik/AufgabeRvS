@@ -52,8 +52,8 @@ public class HttpServer
      */
     public HttpServer(int port)
     {
-        System.out.println("Type \"help\" for a list of available commands.");
         init(port);
+        System.out.println("Type \"help\" for a list of available commands.");
     }
 
     /**
@@ -65,8 +65,9 @@ public class HttpServer
     private void init(int port){
         this.port = port;
         if(port < 0 || port > 65535){
-            System.out.println("Given Port was out of Range - Defaulting to 80");
-            this.port = 80;
+            System.out.println("Given Port was out of Range.");
+
+            System.exit(1);
         }
         try {
             serverSocket = new ServerSocket();
@@ -83,7 +84,7 @@ public class HttpServer
     {
         System.out.println("Starting Server on Port " + port);
         if(!available(port)){
-            System.out.println("Server start failed: -Port is already in use by another application");
+            System.out.println("Server start failed: " + port + " is already in use by another application");
             online = false;
             return;
         }

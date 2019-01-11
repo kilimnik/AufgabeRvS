@@ -243,13 +243,6 @@ public class Response {
 
             File file = path.toFile();
 
-            //Prüfen ob Datei gelsen werden draf
-            if (!file.canRead()){
-                responseCode = ResponseCode.FORBIDDEN_403;
-
-                return false;
-            }
-
             if (file.isDirectory()){
                 File[] files = file.listFiles();
 
@@ -286,6 +279,13 @@ public class Response {
             decodeContentType(file);
 
             response = Files.readAllBytes(path);
+
+            //Prüfen ob Datei gelsen werden draf
+            if (!file.canRead()){
+                responseCode = ResponseCode.FORBIDDEN_403;
+
+                return false;
+            }
 
             if (contentType.startsWith("text")){
                 response = new String(response, StandardCharsets.UTF_8).getBytes();
